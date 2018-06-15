@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ToDo</title>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/material-icons.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/window.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <script src="lib/jquery-3.2.1.min.js"></script>
+    <script src="lib/angular.min.js"></script>
+    <!--<script src="server.js"></script>-->
+</head>
+<body>
+<div id="ToDo" ng-app="ToDoApp" ng-controller="ToDoCtrl">
+    <h1>To-Do</h1>
+    <p class="lead" id="welcome">Welcome to my application </p>
+
+    <div class="box" id="description" style="display: none">
+        <h2>TASK</h2>
+        <label>Description:</label>
+        <form>
+            <textarea>text...</textarea>
+            <h4 class="data">04.06.1998</h4>
+            <input id="done" type="submit" name="" value="DONE" onclick="hideDescription()">
+        </form>
+    </div>
+
+    <div class="box" id="login">
+        <h2 id="sign">SIGN IN</h2>
+        <p id="message">ERROR</p>
+        <form onsubmit="return false;">
+            <div class="inputBox">
+                <input id="log-input" type="text" name="" required="">
+                <label class="inputText">Login</label>
+            </div>
+            <div class="inputBox">
+                <input id="pas-input" type="password" name="" required="">
+                <label class="inputText">Password</label>
+            </div>
+            <div class="reg">
+                <input id="reg-input" type="checkbox" name="" onclick="changeHeader()">
+                <span> NEW ToDo </span>
+            </div>
+            <input type="submit" name="" value="JOIN" ng-click="loginUser()">
+        </form>
+    </div>
+
+    <div id="root">
+        <div class="container">
+            <h3>Add - ToDo</h3>
+            <input id="new-task" type="text">
+            <i id="add" class="material-icons" ng-click="addTask()">check</i>
+            <h3>Your - ToDo</h3>
+            <ul id="unfinished-tasks">
+                <!-- ListItems -->
+            </ul>
+            <h3>Finished - ToDo</h3>
+            <ul id="finished-tasks">
+                <!-- ListItems -->
+            </ul>
+        </div>
+    </div>
+
+    <div id="under">
+    <span class="gh">
+        Project on GitHub
+        <a href="https://github.com/TheTOXIN/EXAMPLES_WEB_APPS/tree/master/FULL_STACK" target="_blank">
+            <img class="logo" src="res/gh_logo.png">
+        </a>
+    </span>
+        <span class="vk">
+        <a href="https://vk.com/the_toxin" target="_blank">
+            <img class="logo" src="res/vk_logo.png">
+        </a>
+        TheTOXIN ©2018
+    </span>
+    </div>
+
+    <img id="loadImg" src="res/ajax-loader.gif" style="display: none"/>
+
+    <div id="notification" style="display: none">
+        <p> NOTIFICATION </p>
+    </div>
+</div>
+<script src="js/index.js"></script>
+<script src="js/controller.js"></script>
+</body>
+</html>

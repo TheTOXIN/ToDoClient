@@ -1,0 +1,20 @@
+{
+  "name": "to-do-client",
+  "version": "1.0.0",
+  "description": "ToDo client for REST service",
+  "main": "server.js",
+  "author": "TheTOXIN",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "fs": "0.0.1-security",
+    "http": "0.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "engines": {
+    "npm": "5.7.1"
+  }
+}
