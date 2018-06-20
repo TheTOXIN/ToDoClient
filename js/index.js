@@ -293,22 +293,22 @@ function changeHeader() {
 }
 
 var msgs = [
-  "Hello ",
-  "Hi ",
-  "Welcome ",
-  "Your so cute ",
-  "Very nice ",
-  "Amazing day! ",
-  "Go ToDo ",
-  "You need more ToDo ",
-  "All right ",
-  "I'm glad to see you ",
-  "How are you? ",
-  "Omg, it's you ",
-  "Yeeeah ",
-  "Please visit my GtiHub ",
-  "How many Todo ",
-  "JUST DO IT "
+    "Hello ",
+    "Hi ",
+    "Welcome ",
+    "Your so cute ",
+    "Very nice ",
+    "Amazing day! ",
+    "Go ToDo ",
+    "You need more ToDo ",
+    "All right ",
+    "I'm glad to see you ",
+    "How are you? ",
+    "Omg, it's you ",
+    "Yeeeah ",
+    "Please visit my GtiHub ",
+    "How many Todo ",
+    "JUST DO IT "
 ];
 
 function showUser(user) {
@@ -334,15 +334,24 @@ function hideLoader() {
 function saveToken(token) {
     var date = new Date();
     date.setDate(date.getDate() + 1);
-    document.cookie = "todo=" + token;
+    document.cookie = "token:" + token;
 }
 
-var oldScrollY = 0;
-window.onscroll = function() {
+function deleteToken() {
+
+}
+
+function logout() {
+    deleteToken();
+    location.reload();
+}
+
+var oldScrollY_1 = 0;
+window.onscroll = function () {
     var scrolled = window.pageYOffset || document.documentElement.scrollTop;
     var dY = scrolled - oldScrollY;
 
-    if ( dY > 0 ){
+    if (dY > 0) {
         $("#under").slideUp(500);
     } else {
         $("#under").slideDown(500);
@@ -350,6 +359,20 @@ window.onscroll = function() {
 
     oldScrollY = scrolled;
 };
+
+// var oldScrollY_2 = 0;
+// window.onscroll = function () {
+//     var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+//     var dY = scrolled - oldScrollY_2;
+//
+//     if (dY > 0) {
+//         $("#logout").slideDown(500);
+//     } else {
+//         $("#logout").slideUp(500);
+//     }
+//
+//     oldScrollY_2 = scrolled;
+// };
 
 function main() {
     showLogin();
