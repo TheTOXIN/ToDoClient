@@ -29,12 +29,7 @@ body {
     color: white;
     font-family: sans-serif;   
     background-blend-mode: multiply;
-    background-image: url(../res/background.png);
-    background-position: top;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: repeat;
-    background-color: rgba(31, 34, 118, 0.6);
+    background: rgba(31, 34, 118, 0.6) url(../res/background.png) repeat fixed center;
 }
 
 .container {

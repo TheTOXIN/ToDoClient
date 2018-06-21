@@ -1,6 +1,6 @@
 @media screen and (max-width: 720px) {
     body {
-        background-image: url(../res/background_m.png);
+        background: rgba(31, 34, 118, 0.6) url(../res/background_m.png) repeat fixed center;
     }
 
     h1 {
@@ -51,7 +51,7 @@
     }
 
     #under {
-        height: 48px;
+        height: 50px;
     }
 
     span.gh {
@@ -115,7 +115,7 @@
     }
 
     #notification {
-        top: 3%;
+        top: 5%;
         text-align: center;
     }
 

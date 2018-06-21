@@ -13,7 +13,7 @@ var welcomeMsg = document.getElementById("welcome");
 var boxWindow = document.getElementById("description");
 var notificationWindow = document.getElementById("notification");
 
-const max = 50;
+const max = 50;//TODO OMG
 
 function createNewElement(task, finish) {
     var checkbox = document.createElement('button');
@@ -71,7 +71,7 @@ function createTask() {
 
         return task;
     } else {
-        showNotification("INVALID", true);
+        showNotification("LONG", true);
     }
 
     return null;
@@ -171,7 +171,12 @@ function finishedTask() {
         checkbox.className = "material-icons checkbox";
         checkbox.innerHTML = "<i class='material-icons'>check_box</i>";
 
-        finishedTasks.appendChild(li);
+        $(li).slideUp().fadeOut(500);
+
+        setTimeout(function () {
+            finishedTasks.appendChild(li);
+        }, 500);
+
         bindTaskEvents(li, unfinishedTask);
 
         var title = li.querySelector('label').innerText;
@@ -181,8 +186,10 @@ function finishedTask() {
                 angular.element(document.getElementById('ToDo')).scope().updateTask(tasks[i]);
             }
         }
+
+        $(li).slideDown().fadeIn(500);
     } else {
-        alert("СОХРАНИТЕ TODO");
+        showNotification("SAVE TODO", true);
     }
 }
 
@@ -195,7 +202,12 @@ function unfinishedTask() {
         checkbox.className = "material-icons checkbox";
         checkbox.innerHTML = "<i class='material-icons'>check_box_outline_blank</i>";
 
-        unfinishedTasks.appendChild(li);
+        $(li).slideUp().fadeOut(500);
+
+        setTimeout(function () {
+            unfinishedTasks.appendChild(li);
+        }, 500);
+
         bindTaskEvents(li, finishedTask);
 
         var title = li.querySelector('label').innerText;
@@ -205,8 +217,10 @@ function unfinishedTask() {
                 angular.element(document.getElementById('ToDo')).scope().updateTask(tasks[i]);
             }
         }
+
+        $(li).slideDown().fadeIn(500);
     } else {
-        alert("СОХРАНИТЕ TODO");
+        showNotification("SAVE TODO", true);
     }
 }
 
@@ -337,28 +351,14 @@ function saveToken(token) {
     document.cookie = "token:" + token;
 }
 
-function deleteToken() {
+// function deleteToken() {
+//
+// }
 
-}
-
-function logout() {
-    deleteToken();
-    location.reload();
-}
-
-var oldScrollY_1 = 0;
-window.onscroll = function () {
-    var scrolled = window.pageYOffset || document.documentElement.scrollTop;
-    var dY = scrolled - oldScrollY;
-
-    if (dY > 0) {
-        $("#under").slideUp(500);
-    } else {
-        $("#under").slideDown(500);
-    }
-
-    oldScrollY = scrolled;
-};
+// function logout() {
+//     deleteToken();
+//     location.reload();
+// }
 
 // var oldScrollY_2 = 0;
 // window.onscroll = function () {
@@ -374,8 +374,39 @@ window.onscroll = function () {
 //     oldScrollY_2 = scrolled;
 // };
 
+//
+// function bindEnter() {
+//     $('html').keydown(function (e) {
+//         if (e.keyCode === 13 && $(rootWindow).css('display') === 'block') {
+//             showLoader();
+//             createTask();
+//         }
+//     });
+// }
+
+function bindScroll() {
+    var oldScrollY_1 = 0;
+    window.onscroll = function () {
+        var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+        var dY = scrolled - oldScrollY_1;
+
+        if (dY > 0) {
+            $("#under").slideUp(500);
+        } else {
+            $("#under").slideDown(500);
+        }
+
+        oldScrollY_1 = scrolled;
+    };
+}
+
+function bindEvent() {
+    bindScroll();
+}
+
 function main() {
     showLogin();
+    bindEvent();
 }
 
 main();

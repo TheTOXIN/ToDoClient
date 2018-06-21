@@ -5,6 +5,17 @@ var tasks = [];
 
 app.controller('ToDoCtrl', function ($scope, $http) {
 
+    $scope.init = function () {
+        $http({
+            url: "https://to-do-server.herokuapp.com/hello/",
+            method: "GET",
+            transformResponse: [function (data) {
+                console.log(data);
+                return data;
+            }]
+        });
+    };
+
     $scope.loginUser = function () {
         showLoader();
 
@@ -92,7 +103,7 @@ app.controller('ToDoCtrl', function ($scope, $http) {
             title: task.title,
             finished: task.finished,
             description: task.description,
-            date: task.date,
+            date: task.date
         }).then(function () {
             hideLoader();
             showNotification("UPDATE", false);
