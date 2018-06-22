@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
     <script src="lib/jquery-3.2.1.min.js"></script>
     <script src="lib/angular.min.js"></script>
-    <!--<script src="server.js"></script>-->
 </head>
 <body>
 <div id="ToDo" ng-app="ToDoApp" ng-controller="ToDoCtrl" data-ng-init="init()">
@@ -58,8 +57,11 @@
             <ul id="unfinished-tasks">
                 <!-- ListItems -->
             </ul>
-            <h3>Finished - ToDo</h3>
-            <ul id="finished-tasks">
+            <h3>
+                Finished - ToDo
+                <i id="expand" class="material-icons" onclick="expandTasks()">expand_more</i>
+            </h3>
+            <ul id="finished-tasks" style="display: none">
                 <!-- ListItems -->
             </ul>
         </div>

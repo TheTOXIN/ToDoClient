@@ -127,6 +127,7 @@ label[for='new-task'] {
 input#new-task {
     float: left;
     width: 500px;
+    margin-bottom: 24px;
 }
 
 li > button:hover {
@@ -179,6 +180,7 @@ ul li input[type=text] {
 
 ul li.editMode input[type=text] {
     display: block;
+    width: 160px;
 }
 
 ul li.editMode label {
@@ -227,8 +229,23 @@ a {
 }
 
 #loadImg {
-    top: 90%;
+    bottom: 0;
     left: 50%;
     transform: translate(-50%, -50%);
     position: fixed;
+}
+
+#expand {
+    font-size: 32px;
+    left: 50%;
+    bottom: -10px;
+    position: relative;
+}
+
+li > .menu:hover {
+    color: #555555;
+}
+
+li > .menu {
+    display: none;
 }

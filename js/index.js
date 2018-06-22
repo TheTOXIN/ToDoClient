@@ -31,6 +31,8 @@ function createNewElement(task, finish) {
     var input = document.createElement('input');
     input.type = "text";
 
+    var menu = document.createElement('div');
+
     var descriptionButton = document.createElement('button');
     descriptionButton.className = "material-icons description";
     descriptionButton.innerHTML = "<i class='material-icons'>description</i>";
@@ -43,15 +45,21 @@ function createNewElement(task, finish) {
     deleteButton.className = "material-icons delete";
     deleteButton.innerHTML = "<i class='material-icons'>delete</i>";
 
+    var menuButton = document.createElement('button');
+    menuButton.className = "material-icons menu";
+    menuButton.innerHTML = "<i class='material-icons'>menu</i>";
+
     var listItem = document.createElement('li');
     listItem.setAttribute("style", "display: none");
 
     listItem.appendChild(checkbox);
     listItem.appendChild(label);
     listItem.appendChild(input);
-    listItem.appendChild(deleteButton);
-    listItem.appendChild(editButton);
-    listItem.appendChild(descriptionButton);
+    listItem.appendChild(menu);
+    menu.appendChild(deleteButton);
+    menu.appendChild(editButton);
+    menu.appendChild(descriptionButton);
+    listItem.appendChild(menuButton);
 
     return listItem;
 }
@@ -78,7 +86,7 @@ function createTask() {
 }
 
 function deleteTask() {
-    var li = this.parentNode;
+    var li = this.parentNode.parentNode;
     var title = li.querySelector('label').innerText;
 
     $(li).hide(1000);
@@ -92,7 +100,7 @@ function deleteTask() {
 
 function editTask() {
     var editButton = this;
-    var listItem = editButton.parentNode;
+    var listItem = editButton.parentNode.parentNode;
     var label = listItem.querySelector('label');
     var input = listItem.querySelector('input');
     var containsClass = listItem.classList.contains('editMode');
@@ -129,7 +137,7 @@ function showDescription() {
     descriptionWindow.style.display = "block";
 
     var descriptionButton = this;
-    var listItem = descriptionButton.parentNode;
+    var listItem = descriptionButton.parentNode.parentNode;
     var label = listItem.querySelector('label');
     var title = label.innerText;
     var h2 = boxWindow.querySelector('h2');
@@ -224,16 +232,44 @@ function unfinishedTask() {
     }
 }
 
+function expandTasks() {
+    if ($(finishedTasks).css('display') === "block") {
+        $(finishedTasks).slideUp(500);
+        $('#expand').html("expand_more");
+    } else {
+        $(finishedTasks).slideDown(500);
+        $('#expand').html("expand_less");
+    }
+}
+
+function expandMenu() {
+    var menu = this;
+    var li = this.parentNode;
+    var div = li.querySelector("div");
+
+    if ($(menu).css('display') === "block") {
+        $(menu).hide('slow');
+        $(div).show('slow');
+    }
+
+    setTimeout(function () {
+        $(menu).show('slow');
+        $(div).hide('slow');
+    }, 5000);
+}
+
 function bindTaskEvents(listItem, checkboxEvent) {
     var checkbox = listItem.querySelector('button.checkbox');
     var editButton = listItem.querySelector('button.edit');
     var deleteButton = listItem.querySelector('button.delete');
     var descriptionButton = listItem.querySelector('button.description');
+    var menuButton = listItem.querySelector('button.menu');
 
     checkbox.onclick = checkboxEvent;
     editButton.onclick = editTask;
     deleteButton.onclick = deleteTask;
     descriptionButton.onclick = showDescription;
+    menuButton.onclick = expandMenu;
 }
 
 function load(task) {
@@ -295,14 +331,14 @@ function showNotification(msg, wrn) {
     $(notificationWindow).slideDown('slow');
     setTimeout(function () {
         $(notificationWindow).slideUp('slow');
-    }, 2000);
+    }, 5000);
 }
 
 function changeHeader() {
     if (registerInput.checked) {
-        signHeader.innerText = "SIGN IN";
-    } else {
         signHeader.innerText = "SIGN UP";
+    } else {
+        signHeader.innerText = "SIGN IN";
     }
 }
 
@@ -384,7 +420,7 @@ function saveToken(token) {
 //     });
 // }
 
-function bindScroll() {
+function bindScrollUnder() {
     var oldScrollY_1 = 0;
     window.onscroll = function () {
         var scrolled = window.pageYOffset || document.documentElement.scrollTop;
@@ -400,8 +436,18 @@ function bindScroll() {
     };
 }
 
+function bindScrollDescroption() {
+    $(document).scroll(function () {
+        var document = $(this);
+        var block = $('#description');
+        var position = block.height() + document.scrollTop();
+        block.css('top', Math.round(position) + 'px');
+    });
+}
+
 function bindEvent() {
-    bindScroll();
+    bindScrollUnder();
+    bindScrollDescroption();
 }
 
 function main() {

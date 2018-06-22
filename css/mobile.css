@@ -87,7 +87,6 @@
 
     ul li.editMode input[type="text"] {
         display: block;
-        width: 130px;
         height: 12px;
         font-size: 16px;
     }
@@ -121,5 +120,13 @@
 
     #message {
         font-size: 20px;
+    }
+
+    li > .menu {
+        display: block;
+    }
+
+    li > div {
+        display: none;
     }
 }
