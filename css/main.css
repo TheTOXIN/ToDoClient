@@ -130,7 +130,7 @@ input#new-task {
     margin-bottom: 24px;
 }
 
-li > button:hover {
+li > div > button:hover {
     color: #00aa00;
 }
 
@@ -153,7 +153,7 @@ li > input[type="checkbox"] {
 li > label {
     font-size: 18px;
     line-height: 40px;
-    width: 237px;
+    width: 421px;
     padding: 1px 0 0 11px
 }
 
@@ -161,11 +161,11 @@ li > input[type="text"] {
     width: 400px;
 }
 
-li > .delete:hover {
+li > div >  .delete:hover {
     color: #bb0000;
 }
 
-li > .description:hover {
+li > div >  .description:hover {
     color: #0000ff;
 }
 
@@ -229,7 +229,7 @@ a {
 }
 
 #loadImg {
-    bottom: 0;
+    bottom: -10px;
     left: 50%;
     transform: translate(-50%, -50%);
     position: fixed;
@@ -237,9 +237,13 @@ a {
 
 #expand {
     font-size: 32px;
-    left: 50%;
+    left: 65%;
     bottom: -10px;
     position: relative;
+}
+
+#expand:hover {
+    color: #555555;
 }
 
 li > .menu:hover {

@@ -82,7 +82,8 @@
 
     li > label {
         font-size: 14px;
-        width: 175px;
+        width: 172px;
+        padding: 0;
     }
 
     ul li.editMode input[type="text"] {
@@ -128,5 +129,9 @@
 
     li > div {
         display: none;
+    }
+
+    #expand {
+        left: 45%;
     }
 }
