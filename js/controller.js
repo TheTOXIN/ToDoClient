@@ -1,5 +1,5 @@
 var app = angular.module('ToDoApp', []);
-var token;
+var userId;
 var user;
 var tasks = [];
 
@@ -16,7 +16,29 @@ app.controller('ToDoCtrl', function ($scope, $http) {
         });
     };
 
-    $scope.loginUser = function () {
+    $scope.oauthToken = function (request) {
+        var client = "todo-client";
+        var secret = "todo-secret";
+        var grantType = "password";
+
+        $http({
+            method: 'POST',
+            url: "http://to-do-server.herokuapp.com/oauth/token",
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Basic dG9kby1jbGllbnQ6dG9kby1zZWNyZXQ='
+            },
+            data: "username=admin&password=root&grant_type=password"
+        }).then(function (response) {
+            console.log("SUCCESS");
+            console.log(response);
+        }).catch(function (response) {
+            console.log("ERROR");
+            console.log(response);
+        });
+    };
+
+    $scope.signUser = function () {
         showLoader();
 
         var request = processLogin();
@@ -26,17 +48,18 @@ app.controller('ToDoCtrl', function ($scope, $http) {
             return;
         }
 
-        $http.post("https://to-do-server.herokuapp.com/login/", request)
+        $http.post("https://to-do-server.herokuapp.com/sign/", request)
             .then(function (response) {
-                token = response.data.userId;
-                if (token === null) {
+                userId = response.data.userId;
+                if (userId === null) {
                     showError();
                 } else {
-                    $scope.getUser(token);
-                    $scope.toDoUser(token);
-
-                    saveToken(token);
-                    hideLogin();
+                    $scope.oauthToken(request);
+                    // $scope.getUser(userId);
+                    // $scope.toDoUser(userId);
+                    //
+                    // //saveToken(token);
+                    // hideLogin();
                 }
                 hideLoader();
             });

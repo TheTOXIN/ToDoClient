@@ -71,7 +71,7 @@ function createTask() {
             finished: false,
             description: "",
             date: new Date().toISOString().substring(0, 10),
-            user: "https://to-do-server.herokuapp.com/rest/users/" + token
+            user: "https://to-do-server.herokuapp.com/rest/users/" + userId
         };
 
         load(task);
@@ -381,11 +381,11 @@ function hideLoader() {
     $("#loadImg").fadeOut(1000);
 }
 
-function saveToken(token) {
-    var date = new Date();
-    date.setDate(date.getDate() + 1);
-    document.cookie = "token:" + token;
-}
+// function saveToken(token) {
+//     var date = new Date();
+//     date.setDate(date.getDate() + 1);
+//     document.cookie = "token:" + token;
+// }
 
 // function deleteToken() {
 //
@@ -436,7 +436,7 @@ function bindScrollUnder() {
     };
 }
 
-function bindScrollDescroption() {
+function bindScrollDescription() {
     $(document).scroll(function () {
         var document = $(this);
         var block = $('#description');
@@ -447,7 +447,7 @@ function bindScrollDescroption() {
 
 function bindEvent() {
     bindScrollUnder();
-    bindScrollDescroption();
+    bindScrollDescription();
 }
 
 function main() {
