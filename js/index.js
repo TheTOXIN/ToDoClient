@@ -342,29 +342,10 @@ function changeHeader() {
     }
 }
 
-var msgs = [
-    "Hello ",
-    "Hi ",
-    "Welcome ",
-    "Your so cute ",
-    "Very nice ",
-    "Amazing day! ",
-    "Go ToDo ",
-    "You need more ToDo ",
-    "All right ",
-    "I'm glad to see you ",
-    "How are you? ",
-    "Omg, it's you ",
-    "Yeeeah ",
-    "Please visit my GtiHub ",
-    "How many Todo ",
-    "JUST DO IT "
-];
-
-function showUser(user) {
+function showWelcome(msg) {
     $(welcomeMsg).slideUp(500);
     setTimeout(function () {
-        welcomeMsg.innerText = msgs[Math.floor(Math.random() * msgs.length)] + user.login;
+        welcomeMsg.innerText = msg;
         $(welcomeMsg).slideDown(500);
     }, 500);
 }
@@ -381,10 +362,9 @@ function hideLoader() {
     $("#loadImg").fadeOut(1000);
 }
 
-// function saveToken(token) {
-//     var date = new Date();
-//     date.setDate(date.getDate() + 1);
+// function saveData(token, userId) {
 //     document.cookie = "token:" + token;
+//     document.cookie = "userId:" + userId;
 // }
 
 // function deleteToken() {

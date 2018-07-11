@@ -1,8 +1,4 @@
 @media screen and (max-width: 720px) {
-    body {
-        background: rgba(31, 34, 118, 0.6) url(../res/background_m.png) repeat fixed center;
-    }
-
     h1 {
         font-size: 48px;
     }
