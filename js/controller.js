@@ -1,11 +1,15 @@
 var app = angular.module('ToDoApp', []);
+
 var token;
-var user;
+var userId;
 var tasks = [];
 
 app.controller('ToDoCtrl', function ($scope, $http) {
-
     $scope.init = function () {
+        $scope.hello();
+    };
+
+    $scope.hello = function () {
         $http({
             url: "https://to-do-server.herokuapp.com/hello/",
             method: "GET",
@@ -16,45 +20,61 @@ app.controller('ToDoCtrl', function ($scope, $http) {
         });
     };
 
-    $scope.loginUser = function () {
+    $scope.signUser = function () {
         showLoader();
 
         var request = processLogin();
-
-        if (request === null)  {
+        if (request === null) {
             hideLoader();
             return;
         }
 
-        $http.post("https://to-do-server.herokuapp.com/login/", request)
+        $http.post("https://to-do-server.herokuapp.com/sign/", request)
             .then(function (response) {
-                token = response.data.userId;
-                if (token === null) {
+                userId = response.data.userId;
+                if (userId === null) {
                     showError();
                 } else {
-                    $scope.getUser(token);
-                    $scope.toDoUser(token);
-
-                    saveToken(token);
-                    hideLogin();
+                    $scope.oauthToken(request);
                 }
                 hideLoader();
             });
     };
 
-    $scope.toDoUser = function (token) {
-        $http.post("https://to-do-server.herokuapp.com/todo/", {userId: token})
-            .then(function (response) {
-                var tasksId = response.data.tasksId;
-                $scope.getTasks(tasksId);
-            });
+    $scope.oauthToken = function (request) {
+        var client = "todo-client";
+        var secret = "todo-secret";
+        var grantType = "password";
+
+        $http({
+            method: 'POST',
+            url: "http://to-do-server.herokuapp.com/oauth/token",
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Basic ' + btoa(client + ':' + secret)
+            },
+            data:
+            'username=' + request.login +
+            '&password=' + request.password +
+            '&grant_type=' + grantType
+        }).then(function (response) {
+            console.log("SUCCESS - OAuth");
+            token = response.data.access_token;
+            $http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+            $scope.toDoUser();
+        }).catch(function (response) {
+            console.log("ERROR - OAuth");
+            console.log(response.data);
+        });
     };
 
-    $scope.getUser = function (token) {
-        $http.get("https://to-do-server.herokuapp.com/rest/users/" + token)
+    $scope.toDoUser = function () {
+        hideLogin();
+
+        $http.post("https://to-do-server.herokuapp.com/todo/", {userId: userId})
             .then(function (response) {
-                user = response.data;
-                showUser(response.data);
+                showWelcome(response.data.welcome);
+                $scope.getTasks(response.data.tasksId);
             });
     };
 
@@ -108,9 +128,9 @@ app.controller('ToDoCtrl', function ($scope, $http) {
             hideLoader();
             showNotification("UPDATE", false);
         })
-        .catch(function () {
-            hideLoader();
-            showNotification("ERROR", true);
-        });
+            .catch(function () {
+                hideLoader();
+                showNotification("ERROR", true);
+            });
     };
 });
