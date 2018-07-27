@@ -387,39 +387,6 @@ function saveToken(token) {
     document.cookie = "token:" + token;
 }
 
-// function deleteToken() {
-//
-// }
-
-// function logout() {
-//     deleteToken();
-//     location.reload();
-// }
-
-// var oldScrollY_2 = 0;
-// window.onscroll = function () {
-//     var scrolled = window.pageYOffset || document.documentElement.scrollTop;
-//     var dY = scrolled - oldScrollY_2;
-//
-//     if (dY > 0) {
-//         $("#logout").slideDown(500);
-//     } else {
-//         $("#logout").slideUp(500);
-//     }
-//
-//     oldScrollY_2 = scrolled;
-// };
-
-//
-// function bindEnter() {
-//     $('html').keydown(function (e) {
-//         if (e.keyCode === 13 && $(rootWindow).css('display') === 'block') {
-//             showLoader();
-//             createTask();
-//         }
-//     });
-// }
-
 function bindScrollUnder() {
     var oldScrollY_1 = 0;
     window.onscroll = function () {
